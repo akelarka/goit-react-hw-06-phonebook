@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone';
+import { useDispatch } from 'react-redux';
+import { addItem } from 'redux/itemsSlice';
 import Button from '../../shared/Button/Button';
 import InputName from '../../shared/InputName/InputName';
 import { Title, Label, FormAdd, ErrorsMessage } from './ContactForm.styled';
@@ -12,7 +14,8 @@ export const schema = Yup.object({
   number: Yup.string().min(6).max(12).required(),
 });
 
-const ContactForm = ({ contacts, onSubmit }) => {
+const ContactForm = ({ contacts }) => {
+  const dispatch = useDispatch();
   const addContact = (values, { resetForm }) => {
     const { name, number } = values;
 
@@ -33,7 +36,7 @@ const ContactForm = ({ contacts, onSubmit }) => {
     });
 
     if (isAdded === true) {
-      onSubmit(addedContact);
+      dispatch(addItem(addedContact));
     }
 
     resetForm();
@@ -90,7 +93,6 @@ const ContactForm = ({ contacts, onSubmit }) => {
 export default ContactForm;
 
 ContactForm.propType = {
-  onSubmit: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

@@ -13,3 +13,8 @@ export const Contact = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 20px;
 `;
+
+export const ListMessage = styled.p`
+  display: inline-block;
+  padding: 20px;
+`;
